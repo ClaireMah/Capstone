@@ -1,5 +1,5 @@
 
-from xml.dom.expatbuilder import makeBuilder
+# from xml.dom.expatbuilder import makeBuilder
 from pyparrot.Minidrone import Mambo
 from pyparrot.Minidrone import Minidrone
 from pyparrot.Minidrone import MamboGroundcam
@@ -55,13 +55,15 @@ if (success):
     frame = mambo.groundcam.get_groundcam_picture(picture_names[0],True) #get frame which is the first in the array
 
 
-
     if frame is not None:
         if frame is not False:
             cv2.imshow("Groundcam", frame)
+            print("wait")
             cv2.waitKey(0)
+            print("destroy windows")
             cv2.destroyAllWindows()
 
+    print("try to land")
     if (mambo.sensors.flying_state != "emergency"):
         print("landing")
         print("flying state is %s" % mambo.sensors.flying_state)
