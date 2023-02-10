@@ -357,7 +357,7 @@ def demo_mambo_user_vision_function(mamboVision, args):
 
     if (testFlying):
         print("taking off!")
-        mambo.safe_takeoff(5)
+        # mambo.safe_takeoff(5)
 
         if (mambo.sensors.flying_state != "emergency"):
             #mambo.smart_sleep(2)

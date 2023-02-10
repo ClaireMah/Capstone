@@ -69,11 +69,11 @@ def main():
         print(len(picture_names))
 
         print("Preparing to open vision")
-        # mamboVision = DroneVisionGUI(mambo, is_bebop=False, buffer_size=200,
-        #                                 user_code_to_run=demo_mambo_user_vision_function(mambo), user_args=(mambo, ))
-        # userVision = symbols.UserVision(mamboVision)
-        # mamboVision.set_user_callback_function(userVision.save_pictures, user_callback_args=None)
-        # mamboVision.open_video()
+        mamboVision = DroneVisionGUI(mambo, is_bebop=False, buffer_size=200,
+                                        user_code_to_run=demo_mambo_user_vision_function(mambo), user_args=(mambo, ))
+        userVision = symbols.UserVision(mamboVision)
+        mamboVision.set_user_callback_function(userVision.save_pictures, user_callback_args=None)
+        mamboVision.open_video()
         demo_mambo_user_vision_function(mambo)
 
         # mambo.safe_land(5)

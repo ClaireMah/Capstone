@@ -94,9 +94,9 @@ def flight_control(mambo):
     #Get z orientation and altitude
     mambo.sensors.set_user_callback_function(None, "DroneAltitude_altitude")
     direction = mambo.sensors.get_estimated_z_orientation()
-    z = mambo.sensors.altitude_ts()
+    # z = mambo.sensors.altitude_ts()
     print("\nheading: ", direction)
-    print("\nheight: ", z)
+    # print("\nheight: ", z)
 
     list_of_images = []
     picture_names_new = []
@@ -137,18 +137,22 @@ def flight_control(mambo):
             # cv2.imwrite(path + '//' + filename, frame)
             save_picture(mambo,picture_name,path,filename)
 
-            picturePath = path + '//' + filename # symbols.get_path(filename)
+            picturePath = path + '\\' + filename # symbols.get_path(filename)
 
             if symbols.is_blue_square_here(picturePath):
                 print("There is a blue square in this picture")
                 mambo.turn_degrees(-90)
+                mambo.fly_direct(0,20,0,0,duration=1)
+            elif symbols.is_green_square_here(picturePath):
+                print("There is a green square in this picture")
+                mambo.turn_degrees(90)
                 mambo.fly_direct(0,20,0,0,duration=1)
             else:
                 mambo.fly_direct(0,20,0,0,duration=1)
 
             filename = "contour_image_%02d.png" % c
             contour = symbols.draw_contour(picturePath)
-            cv2.imwrite(path+ '//' +filename, contour)
+            cv2.imwrite(path+ '\\' +filename, contour)
             # save_picture(mambo,picture_name,path,filename)
 
             c = c+1
