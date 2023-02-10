@@ -48,6 +48,7 @@ def main():
         mambo.ask_for_state_update()
         mambo.smart_sleep(1)
         mambo.safe_takeoff(5)
+        mambo.hover()
 
         picture_names = mambo.groundcam.get_groundcam_pictures_names() #get list of availible files
         print(picture_names)
@@ -82,6 +83,8 @@ def flight_control(mambo):
     x = 0
     y = 0
     z = 0
+
+    mambo.set_max_altitude(2)
 
     picture_names = mambo.groundcam.get_groundcam_pictures_names()
     #take picture
@@ -143,23 +146,28 @@ def flight_control(mambo):
                 print("There is a blue square in this picture")
                 mambo.turn_degrees(-90)
                 mambo.fly_direct(0,20,0,0,duration=1)
+                # increment coordinates
+                mambo.hover()
             elif symbols.is_green_square_here(picturePath):
                 print("There is a green square in this picture")
                 mambo.turn_degrees(90)
                 mambo.fly_direct(0,20,0,0,duration=1)
+                # increment coordinates
+                mambo.hover()
             else:
                 mambo.fly_direct(0,20,0,0,duration=1)
+                mambo.hover()
 
             filename = "contour_image_%02d.png" % c
             contour = symbols.draw_contour(picturePath)
-            cv2.imwrite(path+ '\\' +filename, contour)
+            # cv2.imwrite(path+ '\\' +filename, contour)
             # save_picture(mambo,picture_name,path,filename)
 
             c = c+1
 
         direction = mambo.sensors.get_estimated_z_orientation()
-        z = MinidroneSensors.altitude()
-        print("\nz: ", z)
+        # z = MinidroneSensors.altitude()
+        # print("\nz: ", z)
         print("\nheading: ", direction)
         
         if frame is not None:
