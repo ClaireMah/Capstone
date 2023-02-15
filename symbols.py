@@ -254,7 +254,7 @@ def is_red_square_here(picturepath):
             cimg = np.zeros_like(image)
             cv2.drawContours(cimg, [c], 0, (255, 255, 255), 5)
             pts = np.where(cimg == 255)
-            mask1 = cv2.inRange(image, (50, 0, 0), (255, 50, 50))
+            mask1 = cv2.inRange(image, (50, 0, 0), (255, 100, 100))
             print(mask1[pts[0][0]][pts[1][0]])
             print(len(pts[0]))
             print(len(pts[1]))
@@ -317,6 +317,34 @@ def is_red_triangle_here(picturepath):
             cv2.drawContours(cimg, [c], 0, (255, 255, 255), 5)
             pts = np.where(cimg == 255)
             mask1 = cv2.inRange(image, (50, 0, 0), (255, 50, 50))
+
+            for i in range(0,len(pts[0]),100):
+                for j in range(0,len(pts[1]),100):
+                    #print(i,j)
+                    if mask1[pts[0][i]][pts[1][j]]==255:
+                        cv2.drawContours(image, [c], 0, (255, 255, 255), 5)
+                        cv2.imshow(shape,image)
+                        cv2.waitKey(0)
+                        cv2.destroyAllWindows()
+                        return True
+    return False
+
+def is_yellow_triangle_here(picturepath):
+    image=cv2.imread(picturepath)
+    edge_image=cv2.Canny(image,100,400)
+    cnts = cv2.findContours(edge_image, cv2.RETR_EXTERNAL,
+        cv2.CHAIN_APPROX_SIMPLE)
+    cnts = imutils.grab_contours(cnts)
+    sd = ShapeDetector()
+    for c in cnts:
+        #detect shape from contour
+        shape = sd.detect(c)
+        print(shape)
+        if shape=="triangle":
+            cimg = np.zeros_like(image)
+            cv2.drawContours(cimg, [c], 0, (255, 255, 255), 5)
+            pts = np.where(cimg == 255)
+            mask1 = cv2.inRange(image, (50, 50, 0), (255, 255, 50))
 
             for i in range(0,len(pts[0]),100):
                 for j in range(0,len(pts[1]),100):

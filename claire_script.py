@@ -73,18 +73,18 @@ def main():
         # mamboVision.open_video()
         flight_control(mambo)
 
-        # mambo.safe_land(5)
+        mambo.safe_land(5)
         print("landed")
         mambo.disconnect()
 
 def flight_control(mambo):
         #set movement parameters
-    mambo.set_max_tilt(20) #equivalent to speed control
+    # mambo.set_max_tilt(20) #equivalent to speed control
     x = 0
     y = 0
     z = 0
 
-    mambo.set_max_altitude(2)
+    # mambo.set_max_altitude(2)
 
     picture_names = mambo.groundcam.get_groundcam_pictures_names()
     #take picture
@@ -97,6 +97,7 @@ def flight_control(mambo):
     #Get z orientation and altitude
     mambo.sensors.set_user_callback_function(None, "DroneAltitude_altitude")
     direction = mambo.sensors.get_estimated_z_orientation()
+    expected_direction = 0
     # z = mambo.sensors.altitude_ts()
     print("\nheading: ", direction)
     # print("\nheight: ", z)
@@ -112,6 +113,7 @@ def flight_control(mambo):
     
         mambo.hover()
         mambo.take_picture()
+        mambo.hover()
 
         # need to wait a bit for the photo to show up
         mambo.smart_sleep(0.5)
@@ -123,6 +125,7 @@ def flight_control(mambo):
         #finding the new picture in the list
         index=is_in_the_list(picture_names, picture_names_new)
         list_of_images.append(index[1])
+        mambo.hover()
 
             #get the right picture
         picture_name=is_in_the_list(picture_names,picture_names_new)[1]
@@ -142,28 +145,36 @@ def flight_control(mambo):
 
             picturePath = path + '\\' + filename # symbols.get_path(filename)
 
-            if symbols.is_blue_square_here(picturePath):
-                print("There is a blue square in this picture")
-                mambo.turn_degrees(-90)
-                mambo.fly_direct(0,20,0,0,duration=1)
+            if symbols.is_red_square_here(picturePath):
+                print("There is a red square in this picture")
+                expected_direction = 90 + expected_direction
+                turn = expected_direction - direction-5
+                print('turn\n', turn)
+                print('direction\n', direction)
+                print('expected_direction\n', expected_direction)
+                mambo.turn_degrees(turn)
+                mambo.smart_sleep(1)
+                mambo.fly_direct(0,15,0,0,duration=1)
                 # increment coordinates
                 mambo.hover()
-            elif symbols.is_green_square_here(picturePath):
-                print("There is a green square in this picture")
-                mambo.turn_degrees(90)
-                mambo.fly_direct(0,20,0,0,duration=1)
-                # increment coordinates
-                mambo.hover()
+            # elif symbols.is_green_square_here(picturePath):
+            #     print("There is a green square in this picture")
+            #     mambo.turn_degrees(90)
+            #     mambo.fly_direct(0,20,0,0,duration=1)
+            #     # increment coordinates
+            #     mambo.hover()
             else:
-                mambo.fly_direct(0,20,0,0,duration=1)
+                mambo.fly_direct(0,15,0,0,duration=1)
                 mambo.hover()
 
             filename = "contour_image_%02d.png" % c
-            contour = symbols.draw_contour(picturePath)
+            # contour = symbols.draw_contour(picturePath)
             # cv2.imwrite(path+ '\\' +filename, contour)
             # save_picture(mambo,picture_name,path,filename)
 
             c = c+1
+        if c > 20:
+            break
 
         direction = mambo.sensors.get_estimated_z_orientation()
         # z = MinidroneSensors.altitude()
@@ -172,7 +183,7 @@ def flight_control(mambo):
         
         if frame is not None:
             if frame is not False:
-                cv2.imshow("Groundcam", frame)
+                # cv2.imshow("Groundcam", frame)
                 cv2.waitKey(4000)
                 cv2.destroyAllWindows()
 
