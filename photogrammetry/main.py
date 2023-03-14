@@ -26,8 +26,8 @@ def main():
     data_int_in=data_int.copy(deep=True)
 
     #standard deviation of observations (should probably not be hard coded lol)
-    pho_std = 5.0
-    con_std= 5.0
+    pho_std = 2.0
+    con_std= 2.0
     pho_std_array= [pho_std for i in range(len(data_pho))] 
     con_std_array= [con_std for i in range(len(data_con))] 
 

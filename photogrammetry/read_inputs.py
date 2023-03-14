@@ -23,11 +23,31 @@ def read(path,lab_num):
     data_pho.columns = ["point", "image", "x", "y"]
     data_tie = pd.read_csv(path+lab_num+".tie", delim_whitespace=True, header=None, engine='python')
     data_tie.columns = ["Point", "X", "Y", "Z"]
-    # data_out = pd.read_csv(path+lab_num+".int", delim_whitespace=True, header=None, engine='python')
-    # data_out.columns = ["col1", "col2", "col3", "col4"]
     data_con = pd.read_csv(path+lab_num+".con", delim_whitespace=True, header=None, engine='python')
     data_con.columns = ["Point", "X", "Y", "Z"]
     
+
+    # data_ext=data_ext.loc[~data_ext["image"].isin([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])]
+    # data_pho=data_pho.loc[~data_pho["image"].isin([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])]
+    data_ext=data_ext.loc[~data_ext["image"].isin([3])]
+    data_pho=data_pho.loc[~data_pho["image"].isin([3])]
+
+
+    # Remove control points that are not observed 
+    data_con = data_con.loc[data_con["Point"].isin(data_pho["point"])]
+    data_con = data_con.loc[data_con["Point"].isin(data_pho["point"])]
+
+    data_pho = data_pho.loc[data_pho["point"].isin(data_tie["Point"])]
+
+    # Clean up tie points, remove points not present in observations, remove points that are used as control
+    data_tie_clean = data_tie
+    data_tie_clean = data_tie.loc[data_tie["Point"].isin(data_pho["point"])]
+    data_tie_clean = data_tie_clean.loc[~data_tie["Point"].isin(data_con["Point"])]
+    data_tie = pd.DataFrame(data_tie_clean).reset_index(drop=True)
+    data_pho = data_pho.reset_index(drop=True)
+    data_ext = data_ext.reset_index(drop=True)
+    data_con = data_con.reset_index(drop=True)
+
     #print('\nint: \n',data_int)
     #print('\next: \n',data_ext)
     #print('\npho: \n',data_pho)
