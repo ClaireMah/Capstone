@@ -7,6 +7,8 @@ import cv2
 import os
 import sys
 import symbols
+import math
+import numpy as np
 
 def save_picture(mambo_object,pictureName,path,filename):
 
@@ -49,6 +51,9 @@ def main():
         mambo.smart_sleep(1)
         mambo.safe_takeoff(5)
         mambo.hover()
+        x = 0
+        y = 0
+        z = mambo.sensors.altitude()
 
         picture_names = mambo.groundcam.get_groundcam_pictures_names() #get list of availible files
         print(picture_names)
@@ -71,28 +76,26 @@ def main():
         # userVision = symbols.UserVision(mamboVision)
         # mamboVision.set_user_callback_function(userVision.save_pictures, user_callback_args=None)
         # mamboVision.open_video()
-        flight_control(mambo)
+        flight_control(mambo, x,y,z)
 
         mambo.safe_land(5)
         print("landed")
         mambo.disconnect()
 
-def flight_control(mambo):
+def flight_control(mambo,x,y,z):
         #set movement parameters
     # mambo.set_max_tilt(20) #equivalent to speed control
-    x = 0
-    y = 0
-    z = 0
 
     # mambo.set_max_altitude(2)
+    c=0
 
     picture_names = mambo.groundcam.get_groundcam_pictures_names()
     #take picture
     mambo.hover()
-    pic_success = mambo.take_picture()
-
+    # pic_success = mambo.take_picture()
+    
     # need to wait a bit for the photo to show up
-    mambo.smart_sleep(0.5)
+    # mambo.smart_sleep(0.5)
 
     #Get z orientation and altitude
     mambo.sensors.set_user_callback_function(None, "DroneAltitude_altitude")
@@ -100,12 +103,14 @@ def flight_control(mambo):
     expected_direction = 0
     # z = mambo.sensors.altitude_ts()
     print("\nheading: ", direction)
-    # print("\nheight: ", z)
+    print("\nheight: ", z)
 
     list_of_images = []
     picture_names_new = []
     flying = True
-    c=0
+
+    x = 0
+    y = 0
 
     #LOOP:
     while flying == True:
@@ -114,6 +119,12 @@ def flight_control(mambo):
         mambo.hover()
         mambo.take_picture()
         mambo.hover()
+
+        z = mambo.sensors.altitude()
+        dist = 1000
+
+        coords = np.empty(shape=(20, 4), dtype='object')
+        coords[c] = [c,x,y,z]
 
         # need to wait a bit for the photo to show up
         mambo.smart_sleep(0.5)
@@ -155,6 +166,9 @@ def flight_control(mambo):
                 mambo.turn_degrees(turn)
                 mambo.smart_sleep(1)
                 mambo.fly_direct(0,15,0,0,duration=1)
+                direction = mambo.sensors.get_estimated_z_orientation()
+                x = x + dist*math.sin(math.radians(direction))
+                y = y + dist*math.cos(math.radians(direction))
                 # increment coordinates
                 mambo.hover()
             # elif symbols.is_green_square_here(picturePath):
@@ -166,7 +180,9 @@ def flight_control(mambo):
             else:
                 mambo.fly_direct(0,15,0,0,duration=1)
                 mambo.hover()
-
+                direction = mambo.sensors.get_estimated_z_orientation()
+                x = x + dist*math.sin(math.radians(direction))
+                y = y + dist*math.cos(math.radians(direction))
             filename = "contour_image_%02d.png" % c
             # contour = symbols.draw_contour(picturePath)
             # cv2.imwrite(path+ '\\' +filename, contour)
@@ -174,9 +190,9 @@ def flight_control(mambo):
 
             c = c+1
         if c > 20:
+            flying = False
             break
 
-        direction = mambo.sensors.get_estimated_z_orientation()
         # z = MinidroneSensors.altitude()
         # print("\nz: ", z)
         print("\nheading: ", direction)
