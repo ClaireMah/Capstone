@@ -1,0 +1,531 @@
+FEMBUN version 9.30
+Finite Element Method self-calibrating BUNdle adjustment
+Derek Lichti -- The University of Calgary -- 2021
+
+*************************************************************************************************************
+
+EXECUTION DATE:  Wednesday, July 27, 2022
+EXECUTION TIME:  03:59:06 PM
+
+COMMAND LINE ARGUMENTS:
+		c:\derek\fembun_gps\fembun.exe
+		dcs28mm
+		-ds
+		-c
+		-u
+		-cor
+		-r
+		-new
+
+*************************************************************************************************************
+OBSERVATIONS/UNKNOWNS SUMMARY
+
+Number of exposure stations                    4
+Number of full EO exposure stations            4
+Number of reduced EO exposure stations         0
+Number of exterior orientation unknowns       24
+Number of strips                               0
+Number of drift parameter unknowns             0
+Number of cameras used                         1
+Number of interior orientation unknowns        0
+Number of tie points                           8
+Number of tie point unknowns                  24
+Number of control points                       4
+Number of control point unknowns              12
+Number of network stations                     0
+Number of network stn unknowns                 0
+Number of direction orient unkowns             0
+------------------------------------------------
+Total number of unknowns                      60
+
+Number of observed image points               36
+Number of image point coord obs               72
+Number of range observations                   0
+Number of background point obs                 0
+Number of ext orient param obs                 0
+Number of GPS PC obs                           0
+Number of int orient param obs                 0
+Number of spatial distance obs                 0
+Number of vertical line constraint obs         0
+Number of base distance constraints            0
+Number of base vector constraints              0
+Number of relative orient constraints          0
+Number of base difference constraints          0
+Number of base vector diff constraints         0
+Number of RO difference constraints            0
+Number of IOP equivalence constraints          0
+Number of direction observations               0
+Number of zenith angle observations            0
+Number of azimuth observations                 0
+Number of shape constraints                    0
+Number of network stn param obs                0
+Number of control point param obs             12
+Number of double difference constraints        0
+Number of inner constraints                    0
+------------------------------------------------
+Total number of observations                  84
+
+Degrees of freedom                            24
+
+Number of check points                         0
+
+Ground control points estimated in the adjustment.
+
+*************************************************************************************************************
+EXTERIOR ORIENTATION INPUT DATA
+
+Image             3
+Camera           99
+===================
+Number of image point observations      10
+Xc               -2000.000
+Yc               -3000.000
+Zc                   0.000
+omega             90.00000
+phi              -30.00000
+kappa             90.00000
+
+Image            10
+Camera           99
+===================
+Number of image point observations      7
+Xc                3000.000
+Yc               -4000.000
+Zc                1000.000
+omega             90.00000
+phi               30.00000
+kappa            180.00000
+
+Image            12
+Camera           99
+===================
+Number of image point observations      9
+Xc               -2000.000
+Yc               -3000.000
+Zc                2000.000
+omega             70.00000
+phi              -40.00000
+kappa            -20.00000
+
+Image            13
+Camera           99
+===================
+Number of image point observations      10
+Xc               -2000.000
+Yc               -2000.000
+Zc                2000.000
+omega             60.00000
+phi              -40.00000
+kappa           -110.00000
+
+*************************************************************************************************************
+INTERIOR ORIENTATION INPUT DATA
+
+Camera           99
+===================
+                   estimate             sd
+------------------------------------------
+xp                  803.800
+yp                  498.375
+c                  3166.329
+k1               0.0000e+00
+k2               0.0000e+00
+k3               0.0000e+00
+p1               0.0000e+00
+p2               0.0000e+00
+min x                 0.000
+max x              1524.000
+min y                 0.000
+max y              1012.000
+Image plane coordinate system is left-handed
+
+*************************************************************************************************************
+OBSERVED PHOTO COORDINATE DATA
+
+Image            3
+==================
+          pt type          x             y         sd x      sd y
+-----------------------------------------------------------------
+           1  CNT       885.480       157.810     1.000     1.000
+           2  CNT      1237.680       544.350     1.000     1.000
+           3  TIE       488.810       552.230     1.000     1.000
+           4  TIE      1024.760       873.390     1.000     1.000
+           5  CNT       677.430       880.020     1.000     1.000
+           9  TIE       389.020       787.830     1.000     1.000
+          12  TIE      1352.330        83.570     1.000     1.000
+          13  TIE       342.420       100.100     1.000     1.000
+          15  CNT       659.780       758.720     1.000     1.000
+          20  TIE       793.230       664.760     1.000     1.000
+
+Image           10
+==================
+          pt type          x             y         sd x      sd y
+-----------------------------------------------------------------
+           2  CNT      1247.620       749.410     1.000     1.000
+           3  TIE      1247.980        41.050     1.000     1.000
+           4  TIE       887.220       599.450     1.000     1.000
+           5  CNT       885.070       222.680     1.000     1.000
+          12  TIE      1314.260       808.650     1.000     1.000
+          15  CNT       288.260       232.260     1.000     1.000
+          20  TIE       112.870       401.090     1.000     1.000
+
+Image           12
+==================
+          pt type          x             y         sd x      sd y
+-----------------------------------------------------------------
+           1  CNT       751.670       747.170     1.000     1.000
+           2  CNT      1129.620       199.850     1.000     1.000
+           3  TIE      1117.470       971.830     1.000     1.000
+           4  TIE      1441.840       315.970     1.000     1.000
+           9  TIE      1267.770       823.690     1.000     1.000
+          15  CNT      1204.790       442.840     1.000     1.000
+          17  TIE       843.870       468.710     1.000     1.000
+          20  TIE      1077.560       222.510     1.000     1.000
+          21  TIE       974.650       630.810     1.000     1.000
+
+Image           13
+==================
+          pt type          x             y         sd x      sd y
+-----------------------------------------------------------------
+           1  CNT       896.820       863.820     1.000     1.000
+           2  CNT       327.880       438.140     1.000     1.000
+           3  TIE      1173.190       469.940     1.000     1.000
+           4  TIE       485.110       111.680     1.000     1.000
+           5  CNT       869.630       137.600     1.000     1.000
+           9  TIE      1043.470       309.570     1.000     1.000
+          13  TIE      1292.850       995.760     1.000     1.000
+          15  CNT       650.700       368.060     1.000     1.000
+          17  TIE       653.340       750.320     1.000     1.000
+          21  TIE       852.000       614.320     1.000     1.000
+
+*************************************************************************************************************
+CONTROL POINT INPUT DATA
+
+          pt #img          X             Y             Z        sd X     sd Y     sd Z
+--------------------------------------------------------------------------------------
+           1    3        49.083        -5.886       759.408    1.000    1.000    1.000
+           2    4       678.429        42.400      1266.583    1.000    1.000    1.000
+           5    3      1258.418        36.214       495.801    1.000    1.000    1.000
+          15    4      1797.284       979.923       478.409    1.000    1.000    1.000
+
+*************************************************************************************************************
+TIE POINT INPUT DATA
+
+          pt #img          X             Y             Z   
+-----------------------------------------------------------
+           3    4       700.000         0.000       200.000
+           4    4      1300.000         0.000      1000.000
+           9    3      1500.000       500.000         0.000
+          12    2       200.000       500.000      1500.000
+          13    2       200.000       500.000         0.000
+          17    2      1000.000      1000.000       600.000
+          20    3      2000.000      1500.000       700.000
+          21    2      1700.000      1400.000         0.000
+
+*************************************************************************************************************
+
+Adjustment successfull!
+
+Convergence in  5 iteration(s).
+Time elapsed for adjustment in seconds     0.02
+
+*************************************************************************************************************
+IMAGE POINT RESIDUALS, REDUNDANCY NUMBERS AND STANDARDISED RESIDUALS
+
+Significance of test =           0.0010
+Power of test =                  0.2000
+Critical value =                  3.291
+Non-centrality parameter =       17.079
+Outlier flag =                     <***
+
+Image            3
+==================
+          pt     v x      v y     r x    r y    mde x    mde y    w x    w y
+----------------------------------------------------------------------------
+           1   -0.005   -0.054   0.31   0.40    7.444    6.533  -0.01  -0.09
+           2    0.129    0.166   0.53   0.45    5.693    6.167   0.18   0.25
+           3   -0.028    0.019   0.41   0.44    6.417    6.216  -0.04   0.03
+           4   -0.010   -0.413   0.50   0.51    5.828    5.806  -0.01  -0.58
+           5   -0.206    0.072   0.57   0.52    5.493    5.744  -0.27   0.10
+           9    0.008    0.028   0.07   0.41   15.268    6.461   0.03   0.04
+          12    0.063    0.006   0.12   0.00   12.056  135.261   0.19   0.19
+          13    0.031    0.104   0.03   0.29   25.504    7.633   0.19   0.19
+          15   -0.032    0.126   0.48   0.47    5.984    5.997  -0.05   0.18
+          20    0.047   -0.051   0.30   0.28    7.602    7.852   0.09  -0.10
+            ------------------
+RMS             0.083    0.154
+
+Image           10
+==================
+          pt     v x      v y     r x    r y    mde x    mde y    w x    w y
+----------------------------------------------------------------------------
+           2   -0.099    0.323   0.24   0.46    8.450    6.073  -0.20   0.47
+           3    0.128   -0.248   0.10   0.26   13.372    8.168   0.41  -0.49
+           4    0.072   -0.522   0.07   0.37   15.605    6.778   0.27  -0.86
+           5   -0.085    0.459   0.11   0.42   12.547    6.398  -0.26   0.71
+          12   -0.012   -0.074   0.00   0.16   64.404   10.343  -0.19  -0.19
+          15    0.035   -0.020   0.10   0.41   12.856    6.466   0.11  -0.03
+          20   -0.044    0.088   0.03   0.23   26.023    8.602  -0.28   0.18
+            ------------------
+RMS             0.077    0.308
+
+Image           12
+==================
+          pt     v x      v y     r x    r y    mde x    mde y    w x    w y
+----------------------------------------------------------------------------
+           1   -0.066   -0.310   0.29   0.26    7.720    8.113  -0.12  -0.61
+           2   -0.314    0.580   0.34   0.35    7.045    6.970  -0.54   0.98
+           3    0.033   -0.063   0.40   0.42    6.532    6.406   0.05  -0.10
+           4    0.563   -0.212   0.40   0.43    6.494    6.273   0.88  -0.32
+           9    0.203    0.060   0.46   0.32    6.123    7.297   0.30   0.11
+          15   -0.102   -0.223   0.51   0.48    5.798    5.986  -0.14  -0.32
+          17   -0.116    0.012   0.41   0.00    6.447   62.163  -0.18   0.18
+          20    0.016    0.142   0.21   0.25    9.082    8.193   0.03   0.28
+          21   -0.234    0.011   0.33   0.00    7.205  153.213  -0.41   0.41
+            ------------------
+RMS             0.245    0.248
+
+Image           13
+==================
+          pt     v x      v y     r x    r y    mde x    mde y    w x    w y
+----------------------------------------------------------------------------
+           1    0.261   -0.090   0.24   0.30    8.493    7.521   0.54  -0.16
+           2   -0.167   -0.111   0.39   0.34    6.649    7.114  -0.27  -0.19
+           3   -0.202    0.032   0.45   0.39    6.142    6.607  -0.30   0.05
+           4   -0.272    0.105   0.46   0.40    6.105    6.518  -0.40   0.17
+           5    0.251    0.070   0.53   0.47    5.650    6.011   0.34   0.10
+           9   -0.055    0.219   0.35   0.45    6.965    6.145  -0.09   0.33
+          13    0.033    0.090   0.03   0.22   24.421    8.804   0.19   0.19
+          15    0.172    0.015   0.30   0.45    7.511    6.187   0.31   0.02
+          17   -0.009   -0.109   0.00   0.36   85.482    6.895  -0.18  -0.18
+          21   -0.005   -0.222   0.00   0.30  313.770    7.584  -0.41  -0.41
+            ------------------
+RMS             0.176    0.124
+            ================================
+OVERALL
+MEAN           -0.001    0.000   0.28   0.34
+RMS             0.163    0.211
+
+Number of flagged image points        0
+
+Maximum x residual               0.563
+Point            4
+Image           12
+Maximum y residual               0.580
+Point            2
+Image           12
+
+Minimum x residual              -0.314
+Point            2
+Image           12
+Minimum y residual              -0.522
+Point            4
+Image           10
+
+Maximum radial distance=   697.745
+
+Redundancy in x                  10.06
+Redundancy in y                  12.28
+
+Variance component in x          0.095
+Variance component in y          0.131
+
+*************************************************************************************************************
+PARAMETER RESIDUALS
+
+
+CONTROL POINTS
+==============
+          pt   param      v       r       mde      w
+------------------------------------------------------
+           1       X    -0.004   0.14   11.176   -0.01
+           1       Y    -0.017   0.07   15.230   -0.06
+           1       Z    -0.011   0.16   10.196   -0.03
+           2       X     0.018   0.22    8.891    0.04
+           2       Y     0.020   0.12   11.902    0.06
+           2       Z     0.012   0.24    8.413    0.03
+           5       X    -0.020   0.13   11.529   -0.06
+           5       Y     0.003   0.19    9.369    0.01
+           5       Z    -0.012   0.24    8.357   -0.02
+          15       X     0.007   0.05   19.140    0.03
+          15       Y    -0.005   0.04   21.075   -0.03
+          15       Z     0.011   0.06   16.379    0.04
+
+RMS                X     0.014
+RMS                Y     0.014
+RMS                Z     0.012
+
+Redundancy                 1.67
+
+Variance component        0.001
+
+*************************************************************************************************************
+ESTIMATED VARIANCE FACTOR SUMMARY
+
+Quadratic form of the residuals          2.571
+
+Total redundancy                         24.00
+
+Estimated variance factor                0.107
+
+Estimated standard errors and confidence ellipsoids are not scaled by the root of the estimated variance factor.
+
+*************************************************************************************************************
+ESTIMATED EXTERIOR ORIENTATION PARAMETERS AND STANDARD ERRORS
+
+Image             3
+Camera           99
+===================
+Number of image point observations      10
+Minimum observed radial distance      166.720
+Maximum observed radial distance      687.712
+Mean observed radial distance         421.064
+Xc               -1812.492          5.324
+Yc               -3463.674          8.648
+Zc                 449.829          6.733
+omega             93.59046        0.10220
+phi              -34.37835        0.08479
+kappa             91.16388        0.09143
+
+Image            10
+Camera           99
+===================
+Number of image point observations      7
+Minimum observed radial distance      131.054
+Maximum observed radial distance      697.745
+Mean observed radial distance         491.597
+Xc                3280.068         15.145
+Yc               -3754.979          7.403
+Zc                 558.151         12.711
+omega             94.57734        0.17404
+phi               26.41083        0.19308
+kappa            176.54949        0.11787
+
+Image            12
+Camera           99
+===================
+Number of image point observations      9
+Minimum observed radial distance       49.856
+Maximum observed radial distance      663.601
+Mean observed radial distance         394.864
+Xc               -1926.478          4.934
+Yc               -2577.731          6.850
+Zc                2195.936          5.849
+omega             65.68204        0.09189
+phi              -36.10873        0.06559
+kappa            -16.27856        0.10128
+
+Image            13
+Camera           99
+===================
+Number of image point observations      10
+Minimum observed radial distance      125.565
+Maximum observed radial distance      697.540
+Mean observed radial distance         371.784
+Xc               -1775.843          4.360
+Yc               -2422.049          6.105
+Zc                1903.768          5.197
+omega             64.45380        0.09591
+phi              -41.10724        0.06584
+kappa           -105.73578        0.10147
+
+MEAN PRECISION
+==============
+Xc                   8.676
+Yc                   7.311
+Zc                   8.187
+omega              0.12081
+phi                0.11522
+kappa              0.10345
+
+*************************************************************************************************************
+ESTIMATED CONTROL POINT COORDINATES AND STANDARD ERRORS
+
+          pt #img          X             Y             Z        sd X     sd Y     sd Z
+--------------------------------------------------------------------------------------
+           1    3        49.079        -5.903       759.397    0.929    0.962    0.914
+           2    4       678.447        42.420      1266.595    0.885    0.938    0.871
+           5    3      1258.398        36.217       495.789    0.934    0.897    0.869
+          15    4      1797.291       979.918       478.420    0.976    0.981    0.968
+                                                           ---------------------------
+MEAN PRECISION                                                 0.932    0.945    0.906
+
+*************************************************************************************************************
+ESTIMATED TIE POINT COORDINATES AND STANDARD ERRORS
+
+          pt #img          X             Y             Z        sd X     sd Y     sd Z
+--------------------------------------------------------------------------------------
+           3    4       665.422        33.930       245.244    1.494    1.885    1.293
+           4    4      1264.571        42.617      1006.408    1.630    1.649    1.205
+           9    3      1459.352       503.451        39.771    4.420    4.495    2.413
+          12    2       220.591       519.649      1465.663    2.573    3.796    2.245
+          13    2       225.326       504.242        45.588    3.519    5.580    2.800
+          17    2       997.754       975.503       619.351   33.825   41.303   17.013
+          20    3      1958.290      1461.514       744.856    2.838    3.710    2.155
+          21    2      1672.350      1428.365        34.557   60.752   67.752   34.802
+                                                           ---------------------------
+MEAN PRECISION                                                24.714   28.245   13.816
+
+*************************************************************************************************************
+CORRELATION COEFFICIENT SUB-MATRICIES
+
+Image             3
+Camera           99     
+===================
+       Xc    Yc    Zc    w     p     k  
+Xc   +1.00 
+Yc   -0.09 +1.00 
+Zc   +0.24 +0.07 +1.00 
+w    -0.25 +0.04 -0.99 +1.00 
+p    +0.68 -0.79 +0.06 -0.15 +1.00 
+k    +0.22 -0.30 -0.04 -0.02 +0.35 +1.00 
+
+Image            10
+Camera           99     
+===================
+       Xc    Yc    Zc    w     p     k  
+Xc   +1.00 
+Yc   +0.55 +1.00 
+Zc   +0.17 -0.03 +1.00 
+w    -0.14 +0.06 -1.00 +1.00 
+p    +0.98 +0.68 +0.18 -0.15 +1.00 
+k    +0.11 -0.04 +0.82 -0.82 +0.12 +1.00 
+
+Image            12
+Camera           99     
+===================
+       Xc    Yc    Zc    w     p     k  
+Xc   +1.00 
+Yc   +0.34 +1.00 
+Zc   -0.22 -0.32 +1.00 
+w    +0.01 -0.24 -0.82 +1.00 
+p    +0.39 -0.66 +0.43 -0.08 +1.00 
+k    +0.01 -0.03 -0.07 -0.04 +0.06 +1.00 
+
+Image            13
+Camera           99     
+===================
+       Xc    Yc    Zc    w     p     k  
+Xc   +1.00 
+Yc   +0.28 +1.00 
+Zc   -0.04 -0.20 +1.00 
+w    -0.09 -0.30 -0.86 +1.00 
+p    +0.45 -0.67 +0.44 -0.08 +1.00 
+k    +0.04 -0.17 -0.05 +0.10 +0.11 +1.00 
+
+*************************************************************************************************************
+BETWEEN-IMAGE CONVERGENCE ANGLES
+
+       Image           3          10          12
+          10        60.8
+          12        22.8        68.2
+          13        23.9        73.1         5.1
+
+Maximum convergence angle:         73.1
+
+*************************************************************************************************************
+
+Program successfully completed--no errors.
+
+
+***** END OF FILE *****

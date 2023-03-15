@@ -49,11 +49,11 @@ def main():
         mambo.smart_sleep(1)
         mambo.ask_for_state_update()
         mambo.smart_sleep(1)
-        mambo.safe_takeoff(5)
+        # mambo.safe_takeoff(5)
         mambo.hover()
         x = 0
         y = 0
-        z = mambo.sensors.altitude()
+        z = 1500 #mambo.sensors.altitude()
 
         picture_names = mambo.groundcam.get_groundcam_pictures_names() #get list of availible files
         print(picture_names)
@@ -76,132 +76,261 @@ def main():
         # userVision = symbols.UserVision(mamboVision)
         # mamboVision.set_user_callback_function(userVision.save_pictures, user_callback_args=None)
         # mamboVision.open_video()
-        flight_control(mambo, x,y,z)
+
+
+#****************************************************************************
+
+        # flight_control(mambo, x,y,z)
+
+         # mambo.set_max_altitude(2)
+        c=0
+
+        picture_names = mambo.groundcam.get_groundcam_pictures_names()    #take picture
+        mambo.hover()
+        pic_success = mambo.take_picture()
+        
+        # need to wait a bit for the photo to show up
+        mambo.smart_sleep(0.5)
+
+        #Get z orientation and altitude
+        mambo.sensors.set_user_callback_function(None, "DroneAltitude_altitude")
+        direction = mambo.sensors.get_estimated_z_orientation()
+        expected_direction = 0
+        # z = mambo.sensors.altitude_ts()
+        print("\nheading: ", direction)
+        print("\nheight: ", z)
+
+        list_of_images = []
+        picture_names_new = []
+        flying = True
+
+        x = 0
+        y = 0
+        coords = np.empty(shape=(25, 5), dtype='object')
+
+
+        #LOOP:
+        while flying == True:
+            #ask which direction to fly
+            picture_names = mambo.groundcam.get_groundcam_pictures_names()    #take picture
+
+            mambo.smart_sleep(1)
+            # mambo.hover()
+            mambo.take_picture()
+            mambo.smart_sleep(1)
+            mambo.hover()
+
+            z = 1500 # mambo.sensors.altitude()
+            dist = 500
+
+            coords[c] = [c,x,y,z,direction]
+
+            # need to wait a bit for the photo to show up
+            mambo.smart_sleep(0.5)
+
+            #upload the new list after the picture
+            
+            picture_names_new = mambo.groundcam.get_groundcam_pictures_names()#essential to reload it each time; does not update automaticaly
+            print("New length is",len(picture_names_new))
+
+            #finding the new picture in the list
+            index=is_in_the_list(picture_names, picture_names_new)
+            list_of_images.append(index[1])
+            mambo.hover()
+
+                #get the right picture
+            picture_name=is_in_the_list(picture_names,picture_names_new)[1]
+            print(picture_name)
+            #filename=input("Filename ?")
+            # filename="img20.jpg"
+
+
+            frame = mambo.groundcam.get_groundcam_picture(list_of_images[c],True)
+            path = sys.path[0]
+            print(path)
+
+            if (frame is not None):
+                filename = "test_image_%02d.png" % c
+                # cv2.imwrite(path + '//' + filename, frame)
+                save_picture(mambo,picture_name,path,filename)
+
+                picturePath = path + '\\' + filename # symbols.get_path(filename)
+
+                if symbols.is_red_square_here(picturePath):
+                    print("There is a red square in this picture")
+                    # expected_direction = 90 + expected_direction
+                    # turn = expected_direction - direction-5
+                    # print('turn\n', turn)
+                    # print('direction\n', direction)
+                    # print('expected_direction\n', expected_direction)
+                    mambo.turn_degrees(170)
+                    mambo.smart_sleep(1)
+                    mambo.fly_direct(0,17,0,0,duration=1)
+                    direction = mambo.sensors.get_estimated_z_orientation()
+                    x = x + dist*math.sin(math.radians(direction))
+                    y = y + dist*math.cos(math.radians(direction))
+                    # increment coordinates
+                    mambo.hover()
+                # elif symbols.is_green_square_here(picturePath):
+                #     print("There is a green square in this picture")
+                #     mambo.turn_degrees(90)
+                #     mambo.fly_direct(0,20,0,0,duration=1)
+                #     # increment coordinates
+                #     mambo.hover()
+                else:
+                    mambo.fly_direct(0,17,0,0,duration=1)
+                    mambo.smart_sleep(0.5)
+                    mambo.hover()
+                    direction = mambo.sensors.get_estimated_z_orientation()
+                    x = x + dist*math.sin(math.radians(direction))
+                    y = y + dist*math.cos(math.radians(direction))
+                # filename = "contour_image_%02d.png" % c
+                # contour = symbols.draw_contour(picturePath)
+                # cv2.imwrite(path+ '\\' +filename, contour)
+                # save_picture(mambo,picture_name,path,filename)
+
+                c = c+1
+            if c > 20:
+                flying = False
+                break
+
+            # z = MinidroneSensors.altitude()
+            # print("\nz: ", z)
+            print("\nheading: ", direction)
+            
+            if frame is not None:
+                if frame is not False:
+                    # cv2.imshow("Groundcam", frame)
+                    cv2.waitKey(4000)
+                    cv2.destroyAllWindows()
+        print(coords)
+
+#*********************************************************************
 
         mambo.safe_land(5)
         print("landed")
         mambo.disconnect()
 
-def flight_control(mambo,x,y,z):
+# def flight_control(mambo,x,y,z):
         #set movement parameters
     # mambo.set_max_tilt(20) #equivalent to speed control
 
-    # mambo.set_max_altitude(2)
-    c=0
+    # # mambo.set_max_altitude(2)
+    # c=0
 
-    picture_names = mambo.groundcam.get_groundcam_pictures_names()
-    #take picture
-    mambo.hover()
+    # picture_names = mambo.groundcam.get_groundcam_pictures_names()    #take picture
+    # mambo.hover()
     # pic_success = mambo.take_picture()
     
-    # need to wait a bit for the photo to show up
+    # # need to wait a bit for the photo to show up
     # mambo.smart_sleep(0.5)
 
-    #Get z orientation and altitude
-    mambo.sensors.set_user_callback_function(None, "DroneAltitude_altitude")
-    direction = mambo.sensors.get_estimated_z_orientation()
-    expected_direction = 0
-    # z = mambo.sensors.altitude_ts()
-    print("\nheading: ", direction)
-    print("\nheight: ", z)
+    # #Get z orientation and altitude
+    # mambo.sensors.set_user_callback_function(None, "DroneAltitude_altitude")
+    # direction = mambo.sensors.get_estimated_z_orientation()
+    # expected_direction = 0
+    # # z = mambo.sensors.altitude_ts()
+    # print("\nheading: ", direction)
+    # print("\nheight: ", z)
 
-    list_of_images = []
-    picture_names_new = []
-    flying = True
+    # list_of_images = []
+    # picture_names_new = []
+    # flying = True
 
-    x = 0
-    y = 0
+    # x = 0
+    # y = 0
 
-    #LOOP:
-    while flying == True:
-        #ask which direction to fly
+    # #LOOP:
+    # while flying == True:
+    #     #ask which direction to fly
     
-        mambo.hover()
-        mambo.take_picture()
-        mambo.hover()
+    #     mambo.hover()
+    #     mambo.take_picture()
+    #     mambo.hover()
 
-        z = mambo.sensors.altitude()
-        dist = 1000
+    #     z = 1500 # mambo.sensors.altitude()
+    #     dist = 1000
 
-        coords = np.empty(shape=(20, 4), dtype='object')
-        coords[c] = [c,x,y,z]
+    #     coords = np.empty(shape=(25, 5), dtype='object')
+    #     coords[c] = [c,x,y,z,direction]
 
-        # need to wait a bit for the photo to show up
-        mambo.smart_sleep(0.5)
+    #     # need to wait a bit for the photo to show up
+    #     mambo.smart_sleep(0.5)
 
-        #upload the new list after the picture
-        picture_names_new = mambo.groundcam.get_groundcam_pictures_names()#essential to reload it each time; does not update automaticaly
-        print("New length is",len(picture_names_new))
+    #     #upload the new list after the picture
+    #     picture_names_new = mambo.groundcam.get_groundcam_pictures_names()#essential to reload it each time; does not update automaticaly
+    #     print("New length is",len(picture_names_new))
 
-        #finding the new picture in the list
-        index=is_in_the_list(picture_names, picture_names_new)
-        list_of_images.append(index[1])
-        mambo.hover()
+    #     #finding the new picture in the list
+    #     index=is_in_the_list(picture_names, picture_names_new)
+    #     list_of_images.append(index[1])
+    #     mambo.hover()
 
-            #get the right picture
-        picture_name=is_in_the_list(picture_names,picture_names_new)[1]
-        print(picture_name)
-        #filename=input("Filename ?")
-        filename="img20.jpg"
+    #         #get the right picture
+    #     picture_name=is_in_the_list(picture_names,picture_names_new)[1]
+    #     print(picture_name)
+    #     #filename=input("Filename ?")
+    #     # filename="img20.jpg"
 
 
-        frame = mambo.groundcam.get_groundcam_picture(list_of_images[c],True)
-        path = sys.path[0]
-        print(path)
+    #     frame = mambo.groundcam.get_groundcam_picture(list_of_images[c],True)
+    #     path = sys.path[0]
+    #     print(path)
 
-        if (frame is not None):
-            filename = "test_image_%02d.png" % c
-            # cv2.imwrite(path + '//' + filename, frame)
-            save_picture(mambo,picture_name,path,filename)
+    #     if (frame is not None):
+    #         filename = "test_image_%02d.png" % c
+    #         # cv2.imwrite(path + '//' + filename, frame)
+    #         save_picture(mambo,picture_name,path,filename)
 
-            picturePath = path + '\\' + filename # symbols.get_path(filename)
+    #         picturePath = path + '\\' + filename # symbols.get_path(filename)
 
-            if symbols.is_red_square_here(picturePath):
-                print("There is a red square in this picture")
-                expected_direction = 90 + expected_direction
-                turn = expected_direction - direction-5
-                print('turn\n', turn)
-                print('direction\n', direction)
-                print('expected_direction\n', expected_direction)
-                mambo.turn_degrees(turn)
-                mambo.smart_sleep(1)
-                mambo.fly_direct(0,15,0,0,duration=1)
-                direction = mambo.sensors.get_estimated_z_orientation()
-                x = x + dist*math.sin(math.radians(direction))
-                y = y + dist*math.cos(math.radians(direction))
-                # increment coordinates
-                mambo.hover()
-            # elif symbols.is_green_square_here(picturePath):
-            #     print("There is a green square in this picture")
-            #     mambo.turn_degrees(90)
-            #     mambo.fly_direct(0,20,0,0,duration=1)
-            #     # increment coordinates
-            #     mambo.hover()
-            else:
-                mambo.fly_direct(0,15,0,0,duration=1)
-                mambo.hover()
-                direction = mambo.sensors.get_estimated_z_orientation()
-                x = x + dist*math.sin(math.radians(direction))
-                y = y + dist*math.cos(math.radians(direction))
-            filename = "contour_image_%02d.png" % c
-            # contour = symbols.draw_contour(picturePath)
-            # cv2.imwrite(path+ '\\' +filename, contour)
-            # save_picture(mambo,picture_name,path,filename)
+    #         if symbols.is_red_square_here(picturePath):
+    #             print("There is a red square in this picture")
+    #             # expected_direction = 90 + expected_direction
+    #             # turn = expected_direction - direction-5
+    #             # print('turn\n', turn)
+    #             # print('direction\n', direction)
+    #             # print('expected_direction\n', expected_direction)
+    #             mambo.turn_degrees(170)
+    #             mambo.smart_sleep(1)
+    #             mambo.fly_direct(0,15,0,0,duration=1)
+    #             direction = mambo.sensors.get_estimated_z_orientation()
+    #             x = x + dist*math.sin(math.radians(direction))
+    #             y = y + dist*math.cos(math.radians(direction))
+    #             # increment coordinates
+    #             mambo.hover()
+    #         # elif symbols.is_green_square_here(picturePath):
+    #         #     print("There is a green square in this picture")
+    #         #     mambo.turn_degrees(90)
+    #         #     mambo.fly_direct(0,20,0,0,duration=1)
+    #         #     # increment coordinates
+    #         #     mambo.hover()
+    #         else:
+    #             mambo.fly_direct(0,15,0,0,duration=1)
+    #             mambo.hover()
+    #             direction = mambo.sensors.get_estimated_z_orientation()
+    #             x = x + dist*math.sin(math.radians(direction))
+    #             y = y + dist*math.cos(math.radians(direction))
+    #         # filename = "contour_image_%02d.png" % c
+    #         # contour = symbols.draw_contour(picturePath)
+    #         # cv2.imwrite(path+ '\\' +filename, contour)
+    #         # save_picture(mambo,picture_name,path,filename)
 
-            c = c+1
-        if c > 20:
-            flying = False
-            break
+    #         c = c+1
+    #     if c > 20:
+    #         flying = False
+    #         break
 
-        # z = MinidroneSensors.altitude()
-        # print("\nz: ", z)
-        print("\nheading: ", direction)
+    #     # z = MinidroneSensors.altitude()
+    #     # print("\nz: ", z)
+    #     print("\nheading: ", direction)
         
-        if frame is not None:
-            if frame is not False:
-                # cv2.imshow("Groundcam", frame)
-                cv2.waitKey(4000)
-                cv2.destroyAllWindows()
+    #     if frame is not None:
+    #         if frame is not False:
+    #             # cv2.imshow("Groundcam", frame)
+    #             cv2.waitKey(4000)
+    #             cv2.destroyAllWindows()
+    # print(coords)
 
 if __name__ == "__main__":
     main()

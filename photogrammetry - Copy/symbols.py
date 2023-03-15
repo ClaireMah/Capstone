@@ -8,7 +8,7 @@ import imutils
 import matplotlib.pyplot as plt
 from random import *
 from pyparrot.Minidrone import Mambo
-from pyparrot.DroneVisionGUI import DroneVisionGUI
+#from pyparrot.DroneVisionGUI import DroneVisionGUI
 import os
 import shutil
 
@@ -254,7 +254,7 @@ def is_red_square_here(picturepath):
             cimg = np.zeros_like(image)
             cv2.drawContours(cimg, [c], 0, (255, 255, 255), 5)
             pts = np.where(cimg == 255)
-            mask1 = cv2.inRange(image, (50, 0, 0), (255, 50, 50))
+            mask1 = cv2.inRange(image, (50, 0, 0), (255, 100, 100))
             print(mask1[pts[0][0]][pts[1][0]])
             print(len(pts[0]))
             print(len(pts[1]))
