@@ -156,7 +156,7 @@ def main():
 
                 picturePath = path + '\\' + filename # symbols.get_path(filename)
 
-                if symbols.is_green_square_here(picturePath):
+                if symbols.is_red_square_here(picturePath):
                     print("There is a red square in this picture")
                     # expected_direction = 90 + expected_direction
                     # turn = expected_direction - direction-5
@@ -167,8 +167,8 @@ def main():
                     mambo.smart_sleep(1)
                     mambo.fly_direct(0,17,0,0,duration=1)
                     direction = mambo.sensors.get_estimated_z_orientation()
-                    x = x + dist*math.sin(math.radians(direction))
-                    y = y + dist*math.cos(math.radians(direction))
+                    x = x + dist*math.cos(math.radians(direction))
+                    y = y + dist*math.sin(math.radians(direction))
                     # increment coordinates
                     mambo.hover()
                 # elif symbols.is_green_square_here(picturePath):
@@ -182,8 +182,8 @@ def main():
                     mambo.smart_sleep(0.5)
                     mambo.hover()
                     direction = mambo.sensors.get_estimated_z_orientation()
-                    x = x + dist*math.sin(math.radians(direction))
-                    y = y + dist*math.cos(math.radians(direction))
+                    x = x + dist*math.cos(math.radians(direction))
+                    y = y + dist*math.sin(math.radians(direction))
                 # filename = "contour_image_%02d.png" % c
                 # contour = symbols.draw_contour(picturePath)
                 # cv2.imwrite(path+ '\\' +filename, contour)
