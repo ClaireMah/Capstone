@@ -94,7 +94,7 @@ def main():
 
         #Get z orientation and altitude
         mambo.sensors.set_user_callback_function(None, "DroneAltitude_altitude")
-        direction = mambo.sensors.get_estimated_z_orientation()
+        direction = 360-mambo.sensors.get_estimated_z_orientation()
         expected_direction = 0
         # z = mambo.sensors.altitude_ts()
         print("\nheading: ", direction)
@@ -121,7 +121,7 @@ def main():
             mambo.hover()
 
             z = 1000 # mambo.sensors.altitude()
-            dist = 750
+            dist = 500
 
             coords[c] = [c,x,y,z,direction]
 
@@ -165,8 +165,8 @@ def main():
                     # print('expected_direction\n', expected_direction)
                     mambo.turn_degrees(165)
                     mambo.smart_sleep(1)
-                    mambo.fly_direct(0,17,0,0,duration=1)
-                    direction = mambo.sensors.get_estimated_z_orientation()
+                    mambo.fly_direct(0,15,0,0,duration=1)
+                    direction = 360-mambo.sensors.get_estimated_z_orientation()
                     x = x + dist*math.cos(math.radians(direction))
                     y = y + dist*math.sin(math.radians(direction))
                     # increment coordinates
@@ -178,10 +178,10 @@ def main():
                 #     # increment coordinates
                 #     mambo.hover()
                 else:
-                    mambo.fly_direct(0,17,0,0,duration=1)
+                    mambo.fly_direct(0,15,0,0,duration=1)
                     mambo.smart_sleep(0.5)
                     mambo.hover()
-                    direction = mambo.sensors.get_estimated_z_orientation()
+                    direction = 360-mambo.sensors.get_estimated_z_orientation()
                     x = x + dist*math.cos(math.radians(direction))
                     y = y + dist*math.sin(math.radians(direction))
                 # filename = "contour_image_%02d.png" % c
