@@ -239,7 +239,7 @@ def is_blue_square_here(picturepath):
     return False
 
 
-def is_red_square_here(picturepath):
+def is_green_square_here(picturepath):
     image=cv2.imread(picturepath)
     edge_image=cv2.Canny(image,100,400)
     cnts = cv2.findContours(edge_image, cv2.RETR_EXTERNAL,
@@ -251,10 +251,11 @@ def is_red_square_here(picturepath):
         shape = sd.detect(c)
         print(shape)
         if shape=="square" or shape=="rectangle":
+            print('square')
             cimg = np.zeros_like(image)
             cv2.drawContours(cimg, [c], 0, (255, 255, 255), 5)
             pts = np.where(cimg == 255)
-            mask1 = cv2.inRange(image, (50, 0, 0), (255, 50, 50))
+            mask1 = cv2.inRange(image, (50, 0, 0), (255, 50, 50)) #incorrect
             print(mask1[pts[0][0]][pts[1][0]])
             print(len(pts[0]))
             print(len(pts[1]))
@@ -270,32 +271,55 @@ def is_red_square_here(picturepath):
                         return True
     return False
 
-def is_green_square_here(picturepath):
-    image=cv2.imread(picturepath)
-    edge_image=cv2.Canny(image,100,400)
-    cnts = cv2.findContours(edge_image, cv2.RETR_EXTERNAL,
+def is_red_square_here(picturepath):
+    image = cv2.imread(picturepath)
+    blurred = cv2.GaussianBlur(image, (5, 5), 0)
+    #blurred=image
+
+    #thresh = cv2.threshold(blurred, 200, 255, cv2.THRESH_BINARY)[1]
+    #thresh=cv2.inRange(blurred,(0, 50, 0), (110, 255,110))
+    thresh=cv2.inRange(blurred,(50, 0, 0), (255, 180, 180))
+    #thresh = cv2.bitwise_not(thresh)-1
+    # cv2.imwrite(main_folder+"\\mask"+image_num+".jpg",thresh)
+
+    #edge_image=cv2.Canny(thresh,200,400)
+    edge_image=thresh
+    cnts = cv2.findContours(edge_image.copy(), cv2.RETR_LIST,
         cv2.CHAIN_APPROX_SIMPLE)
+    #cnts=draw_contour(image_file)
     cnts = imutils.grab_contours(cnts)
+
     sd = ShapeDetector()
+    # image=cv2.imread(picturepath)
+    # edge_image=cv2.Canny(image,100,400)
+    # cnts = cv2.findContours(edge_image, cv2.RETR_EXTERNAL,
+    #     cv2.CHAIN_APPROX_SIMPLE)
+    # cnts = imutils.grab_contours(cnts)
+    # sd = ShapeDetector()
     for c in cnts:
         #detect shape from contour
+        M=cv2.moments(c)
+
+        print('M: ', M["m00"])
+        if M["m00"]<500 or M["m00"]>200000:
+            continue
         shape = sd.detect(c)
         print(shape)
         if shape=="square" or shape=="rectangle":
-            cimg = np.zeros_like(image)
-            cv2.drawContours(cimg, [c], 0, (255, 255, 255), 5)
-            pts = np.where(cimg == 255)
-            mask1 = cv2.inRange(image, (0, 50, 0), (200, 255,200))
-            print(mask1[pts[0][0]][pts[1][0]])
-            print(len(pts[0]))
-            print(len(pts[1]))
+            # cimg = np.zeros_like(image)
+            cv2.drawContours(edge_image, [c], 0, (0, 0, 255), 5)
+            pts = np.where(edge_image == 255)
+            # mask1 = cv2.inRange(image, (0, 50, 0), (200, 255,200))
+            # print(mask1[pts[0][0]][pts[1][0]])
+            # print(len(pts[0]))
+            # print(len(pts[1]))
 
             for i in range(0,len(pts[0]),100):
                 for j in range(0,len(pts[1]),100):
                     #print(i,j)
-                    if mask1[pts[0][i]][pts[1][j]]==255:
-                        cv2.drawContours(image, [c], 0, (255, 255, 255), 5)
-                        cv2.imshow(shape,image)
+                    if thresh[pts[0][i]][pts[1][j]]==255:
+                        cv2.drawContours(thresh, [c], 0, (255, 255, 255), 5)
+                        cv2.imshow(shape,thresh)
                         cv2.waitKey(0)
                         cv2.destroyAllWindows()
                         return True

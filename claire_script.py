@@ -49,7 +49,7 @@ def main():
         mambo.smart_sleep(1)
         mambo.ask_for_state_update()
         mambo.smart_sleep(1)
-        # mambo.safe_takeoff(5)
+        mambo.safe_takeoff(5)
         mambo.hover()
         x = 0
         y = 0
@@ -120,8 +120,8 @@ def main():
             mambo.smart_sleep(1)
             mambo.hover()
 
-            z = 1500 # mambo.sensors.altitude()
-            dist = 500
+            z = 1000 # mambo.sensors.altitude()
+            dist = 750
 
             coords[c] = [c,x,y,z,direction]
 
@@ -156,14 +156,14 @@ def main():
 
                 picturePath = path + '\\' + filename # symbols.get_path(filename)
 
-                if symbols.is_red_square_here(picturePath):
+                if symbols.is_green_square_here(picturePath):
                     print("There is a red square in this picture")
                     # expected_direction = 90 + expected_direction
                     # turn = expected_direction - direction-5
                     # print('turn\n', turn)
                     # print('direction\n', direction)
                     # print('expected_direction\n', expected_direction)
-                    mambo.turn_degrees(170)
+                    mambo.turn_degrees(165)
                     mambo.smart_sleep(1)
                     mambo.fly_direct(0,17,0,0,duration=1)
                     direction = mambo.sensors.get_estimated_z_orientation()
