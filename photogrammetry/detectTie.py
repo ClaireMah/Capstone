@@ -12,7 +12,7 @@ def detectTie(main_folder,output_file):
 
     pho_mat=np.empty((0,4),int)
 
-    img_folder=main_folder+"\\img\\"
+    img_folder=main_folder+"\\img2\\"
     for name in os.listdir(img_folder):
         image_file=img_folder+name
         image_num=name[0:-4]
@@ -140,6 +140,6 @@ def detectTie(main_folder,output_file):
         np.savetxt(output_file, pho_mat, fmt='%s')
 
 
-out="C:\\Users\\mabel\\OneDrive\\Desktop\\Year 4\\ENGO 500\\data\\test2\\photo.pho"
+out="C:\\Users\\mabel\\OneDrive\\Desktop\\Year 4\\ENGO 500\\data\\test2\\photo2.pho"
 folder="C:\\Users\\mabel\\OneDrive\\Desktop\\Year 4\\ENGO 500\\data\\test2\\"
 detectTie(folder,out)
