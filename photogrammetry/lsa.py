@@ -64,6 +64,10 @@ def adjust(data_int,data_ext,data_pho,data_tie,data_con,pho_std,con_std,data_gcp
     P = np.zeros((n,n))
     Po = np.zeros((uo,uo))
 
+    print('\nn : ', n+no)
+    print('\nu : ', ue+uo)
+
+
     # Populating P
     np.fill_diagonal(P,(1/(pho_std*pho_std)))
 

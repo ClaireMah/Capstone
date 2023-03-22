@@ -90,7 +90,6 @@ def calc_coll_pds_misc(XYZc,wpk,XYZ,xpypc,xy_obs,lhs):
 
     ae_2x6.loc[0,3]=-c/(W*W)*(dXYZ.iloc[1,0]*(U*M.iloc[2,2]-W*M.iloc[0,2])-dXYZ.iloc[2,0]*(U*M.iloc[2,1]-W*M.iloc[0,1]))
     ae_2x6.loc[0,4]=-c/(W*W)*(dXYZ.iloc[0,0]*(-W*sin(p)*cos(k)-U*cos(p))+dXYZ.iloc[1,0]*(W*sin(w)*cos(p)*cos(k)-U*sin(w)*sin(p))+dXYZ.iloc[2,0]*(-W*cos(w)*cos(p)*cos(k)+U*cos(w)*sin(p)))
-    # ae_2x6(1,5)=-c/UVW(3)^2*(dXYZ(1)*(-UVW(3)*sin(p)*cos(k)-UVW(1)*cos(p))+dXYZ(2)*(UVW(3)*sin(w)*cos(p)*cos(k)-UVW(1)*sin(w)*sin(p))+dXYZ(3)*(-UVW(3)*cos(w)*cos(p)*cos(k)+UVW(1)*cos(w)*sin(p)));
     ae_2x6.loc[0,5]=-c*V/W
 
     ae_2x6.loc[1,0]=K*(-c/(W*W)*(M.iloc[2,0]*V-M.iloc[1,0]*W))
@@ -98,7 +97,6 @@ def calc_coll_pds_misc(XYZc,wpk,XYZ,xpypc,xy_obs,lhs):
     ae_2x6.loc[1,2]=K*(-c/(W*W)*(M.iloc[2,2]*V-M.iloc[1,2]*W))
 
     ae_2x6.loc[1,3]=K*(-c/(W*W)*(dXYZ.iloc[1,0]*(V*M.iloc[2,2]-W*M.iloc[1,2])-dXYZ.iloc[2,0]*(V*M.iloc[2,1]-W*M.iloc[1,1])))
-    # ae_2x6.loc[1,4]=-c/(W*W)*(dXYZ.iloc[0,0]*(W*sin(p)*sin(k)-V*cos(p))+dXYZ.iloc[1,0]*(-W*sin(w)*cos(p)*sin(k)-V*sin(w)*sin(p))+dXYZ.iloc[2,0]*(W*cos(w)*cos(p)*sin(k)+V*cos(w)*sin(p)))
     ae_2x6.loc[1,4]=K*(-c/(W*W)*(dXYZ.iloc[0,0]*(W*sin(p)*sin(k)-V*cos(p))+dXYZ.iloc[1,0]*(-W*sin(w)*cos(p)*sin(k)-V*sin(w)*sin(p))+dXYZ.iloc[2,0]*(W*cos(w)*cos(p)*sin(k)+V*cos(w)*sin(p))))
     ae_2x6.loc[1,5]=K*(c*U/W)
     # print(ae_2x6)

@@ -26,15 +26,38 @@ def read(path,lab_num):
     data_con = pd.read_csv(path+lab_num+".con", delim_whitespace=True, header=None, engine='python')
     data_con.columns = ["Point", "X", "Y", "Z"]
     
+    #List of points to remove
+    # data_pho=data_pho.loc[~data_pho["point"].isin([1])]
 
-    # data_ext=data_ext.loc[~data_ext["image"].isin([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])]
-    # data_pho=data_pho.loc[~data_pho["image"].isin([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])]
-    data_ext=data_ext.loc[~data_ext["image"].isin([3])]
-    data_pho=data_pho.loc[~data_pho["image"].isin([3])]
+    #list of images to remove
+    # data_ext=data_ext.loc[~data_ext["image"].isin([10,11,12,14,17])]
+    # data_pho=data_pho.loc[~data_pho["image"].isin([10,11,12,14,17])]
+    
+    #list of images to include
+    data_ext=data_ext.loc[data_ext["image"].isin([0, 2,4, 19])]
+    data_pho=data_pho.loc[data_pho["image"].isin([0, 2,4, 19])]
 
+    pho_ids=data_pho['point'].unique()
+    pho_ids.sort()
 
-    # Remove control points that are not observed 
-    data_con = data_con.loc[data_con["Point"].isin(data_pho["point"])]
+    # for i in pho_ids:
+    #     temp = data_pho.loc[data_pho["point"] == i]
+    #     # Filter points that are observed in less than 3 images 
+    #     if len(temp) < 3:
+    #         data_pho = data_pho.loc[data_pho["point"]!=i]
+    # # Filter any duplicate observations
+    # data_pho = data_pho.drop_duplicates(subset=["point","image"])
+
+    for i in range(len(data_ext)):
+        data_ext.iloc[i,7] = 360 - data_ext.iloc[i,7]+90                  #Use to change Kappa angles
+        if data_ext.iloc[i,7] >360:
+            data_ext.iloc[i,7] = data_ext.iloc[i,7]-360
+        elif data_ext.iloc[i,7] < 0:
+            data_ext.iloc[i,7] = data_ext.iloc[i,7]+360
+
+    #make sure all input files match
+    data_ext = data_ext.loc[data_ext['image'].isin(data_pho['image'])]
+
     data_con = data_con.loc[data_con["Point"].isin(data_pho["point"])]
 
     data_pho = data_pho.loc[data_pho["point"].isin(data_tie["Point"])]
@@ -48,9 +71,9 @@ def read(path,lab_num):
     data_ext = data_ext.reset_index(drop=True)
     data_con = data_con.reset_index(drop=True)
 
-    #print('\nint: \n',data_int)
-    #print('\next: \n',data_ext)
-    #print('\npho: \n',data_pho)
-    #print('\ntie: \n',data_tie)
-    #print('\ncon: \n',data_con, '\n\n')
+    print('\nint: \n',data_int)
+    print('\next: \n',data_ext)
+    print('\npho: \n',data_pho)
+    print('\ntie: \n',data_tie)
+    print('\ncon: \n',data_con, '\n\n')
     return data_int,data_ext,data_pho,data_tie,data_con

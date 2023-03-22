@@ -17,7 +17,7 @@ import sys
 def main():
     # input test data
     input_path=sys.path[0]
-    lab_num = "\\files\\engo531_lab1"
+    lab_num = "\\files_test0405\\engo531_lab1"
     data_int,data_ext,data_pho,data_tie,data_con = input.read(input_path,lab_num)
     data_pho_in=data_pho.copy(deep=True)
     data_con_in=data_con.copy(deep=True)
