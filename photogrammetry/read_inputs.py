@@ -30,12 +30,12 @@ def read(path,lab_num):
     # data_pho=data_pho.loc[~data_pho["point"].isin([1])]
 
     #list of images to remove
-    # data_ext=data_ext.loc[~data_ext["image"].isin([10,11,12,14,17])]
-    # data_pho=data_pho.loc[~data_pho["image"].isin([10,11,12,14,17])]
+    # data_ext=data_ext.loc[~data_ext["image"].isin([3])]
+    # data_pho=data_pho.loc[~data_pho["image"].isin([3])]
     
     #list of images to include
-    data_ext=data_ext.loc[data_ext["image"].isin([0, 2,4, 19])]
-    data_pho=data_pho.loc[data_pho["image"].isin([0, 2,4, 19])]
+    data_ext=data_ext.loc[data_ext["image"].isin([0,2,6,8,10,19,21,25])] #0,2,4,6,8,10,19,21,25
+    data_pho=data_pho.loc[data_pho["image"].isin([0,2,6,8,10,19,21,25])]
 
     pho_ids=data_pho['point'].unique()
     pho_ids.sort()
@@ -49,11 +49,17 @@ def read(path,lab_num):
     # data_pho = data_pho.drop_duplicates(subset=["point","image"])
 
     for i in range(len(data_ext)):
-        data_ext.iloc[i,7] = 360 - data_ext.iloc[i,7]+90                  #Use to change Kappa angles
+        # data_ext.iloc[i,7] = data_ext.iloc[i,7]+90                  #Use to change Kappa angles
         if data_ext.iloc[i,7] >360:
             data_ext.iloc[i,7] = data_ext.iloc[i,7]-360
         elif data_ext.iloc[i,7] < 0:
             data_ext.iloc[i,7] = data_ext.iloc[i,7]+360
+    
+    # for i in range(len(data_con)):
+    #     temp = data_con.loc[i,'X']
+    #     data_con.loc[i,'X'] = -data_con.loc[i,'Y']
+    #     data_con.loc[i,'Y'] = temp
+
 
     #make sure all input files match
     data_ext = data_ext.loc[data_ext['image'].isin(data_pho['image'])]

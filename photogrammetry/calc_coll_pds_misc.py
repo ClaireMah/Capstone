@@ -59,7 +59,7 @@ def calc_coll_pds_misc(XYZc,wpk,XYZ,xpypc,xy_obs,lhs):
 
     R1 = pd.DataFrame([[1, 0, 0], [0, cos(w), sin(w)], [0, -sin(w), cos(w)]])
     R2 = pd.DataFrame([[cos(p), 0, -sin(p)], [0, 1, 0], [sin(p), 0, cos(p)]])
-    R3 = pd.DataFrame([[cos(k), sin(k), 0], [-sin(k), cos(k), 0], [0, 0, 1 ]])
+    R3 = pd.DataFrame([[cos(k), sin(k), 0], [-sin(k), cos(k), 0], [0, 0, 1]])
 
     # print(R1)
 
