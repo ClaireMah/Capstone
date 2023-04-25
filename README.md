@@ -7,7 +7,7 @@ Mabel Heffring
 
 April 4th, 2023
 
-Python Environment: 
+### Python Environment: 
 - Use Python3
 - In your python environment, install the following packages
     - untangle
@@ -20,25 +20,28 @@ Python Environment:
     - Install pyparrot so that you have a local, editable verson
     - If FTP connection is commented out, uncomment this section (check in MiniDrone.py and wifiConnection.py)
 
-Flying the drone:
+### Flying the drone:
 - Attach FPV camera to the drone. 
 - Turn on the drone, wait for flashing green eyes.
 - Look for a wifi connection called Mambo_XXXXXX (each drone will have a unique 6 digit ID). Sometimes it takes a few minutes to show up. 
 - Connect to this network, you will not have internet access. 
 - Run your script (start with the ones in LearnToFly folder)
 
-Landing:
+### Landing:
 If you lose connection, the drone will keep flying. To land, either:
 - Make sure you are still connected to the drones network and run "panic.py". This will reconnect to the drone and safely land it. 
 - Firmly tap the drone's propeller guards from the side. This will activate an emergency crash feature of the drone and will immediately cut it's flight. Be ready to catch it. 
 
-Other tips: 
+### Other tips: 
 - To reset, hold down power button. Eyes will turn red. Keep holding power button until eyes are green again. 
 - Fly in large open space, ideally at least 2m radius of space on all sides of the drone. It is very lightweight and will drift near walls or other obstacles. 
 - Symbol detection works best with a white background for contrast
 - Pyparrot is an open source library, not designed by the drone manufacturers. Some features may not work. The drones and the library are no longer supported. 
 
-Main Flight (main_flight.py):
+
+
+
+### Main Flight (main_flight.py):
 - This script is designed to collect images in a semi-autonomous manner to be used in a photogrammetric bundle adjustment
 - To set up, find a large open indoor space with bright lighting. 
 - Choose 2 distinct symbols. Currently, the program is coded to use red squares as boundary points for navigation and green circles for bundle adjustment points. 
@@ -49,16 +52,16 @@ Main Flight (main_flight.py):
 - Measure approximate locations of photogrammetry points in your local coordinate system, cm accuracy. 
 - Connect to the drone and run main_flight.py. It will fly the drone within the defined boundary and collect up to 20 images. 
 
-Nadir Camera Calibration:
+### Nadir Camera Calibration:
 - Print out checkerboard (calibrationpattern_checkerboard.pdf)
 - Collect 10-20 images using only_pictures.py
 - @mabel idk the rest of the steps 
 - 
 
-Tie Point Detection:
+### Tie Point Detection:
 - 
 
-Bundle Adjustment:
+### Bundle Adjustment:
 - Set up 6 input files
     - .con > Control points, known coordinates (PointID X Y Z)
     - .tie > Tie points, approximate coordinates (PointID X Y Z)
@@ -72,14 +75,17 @@ Bundle Adjustment:
 - Run main.py
 - Read output_file.txt for results 
 
-To access drone directly:
+
+
+
+### To access drone directly:
 - Connect to a computer via USB
 - Drone should appear in file explorer
 - Press power button 4 times to enter debug mode
 - Can connect to the linux terminal with Telenet connection to 192.168.2.1 on PuTTY, or other terminal emulator software. 
 - Tutorial here: https://sites.google.com/view/minidronefirmwarefun 
 
-Firmware issues:
+### Firmware issues:
 - Drones were initially bought with firmware 3.0.6. 
 - If you want to use the app (Parrot FreeFlight Mini), it will ask you to upgrade to 3.0.26. 
 - Drones were tested using both 3.0.6 and 3.0.26, both versions will work. 
