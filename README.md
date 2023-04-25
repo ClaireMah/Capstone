@@ -39,7 +39,7 @@ If you lose connection, the drone will keep flying. To land, either:
 - Pyparrot is an open source library, not designed by the drone manufacturers. Some features may not work. The drones and the library are no longer supported. 
 
 
-
+---- 
 
 ### Main Flight (main_flight.py):
 - This script is designed to collect images in a semi-autonomous manner to be used in a photogrammetric bundle adjustment
@@ -76,7 +76,7 @@ If you lose connection, the drone will keep flying. To land, either:
 - Read output_file.txt for results 
 
 
-
+----- 
 
 ### To access drone directly:
 - Connect to a computer via USB
