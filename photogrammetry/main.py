@@ -55,7 +55,6 @@ def main():
     # Continue iterating (need to fix tolerance)
     tolerance = 0.0001
     while keepgoing == True:
-    #for i in range(3):
         delta,data_ext_adj,data_tie_adj,data_con_adj,v_obs,A,P,n,no,uo,ue,norm,gcp_ids,Po=lsa.adjust(data_int,data_ext_adj,data_pho,data_tie_adj,data_con_adj,pho_std,con_std,data_gcps_in)
         keepgoing = False
         print(delta)

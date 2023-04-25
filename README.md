@@ -89,4 +89,4 @@ If you lose connection, the drone will keep flying. To land, either:
 - Drones were initially bought with firmware 3.0.6. 
 - If you want to use the app (Parrot FreeFlight Mini), it will ask you to upgrade to 3.0.26. 
 - Drones were tested using both 3.0.6 and 3.0.26, both versions will work. 
-- There are known bugs with 3.0.26 that broke access to the groundcam. Access is still possible using pyparrot. 
+- There are known bugs with 3.0.26 that broke access to the groundcam. Access is still possible using pyparrot. Ignore error messages that say otherwise. 
