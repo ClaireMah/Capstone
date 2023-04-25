@@ -1,7 +1,7 @@
 """
-ENGO 531: Lab #1 - Bundle Adjustment Software Development
- Authors: Claire Mah, Seema Mustaqeem and Mabel Heffring
-    Date: October 11, 2022
+ENGO 500 - Bundle Adjustment Software Development
+ Authors: Claire Mah, Hannah Poon and Mabel Heffring
+    Date: April 4, 2023
     File: lsa.py
 """
 #from typing import Concatenate

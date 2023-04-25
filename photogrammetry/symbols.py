@@ -1,3 +1,12 @@
+"""
+ENGO 500 - Symbol detection
+ Authors: Claire Mah, Hannah Poon and Mabel Heffring
+    Date: April 4, 2023
+    File: symbols.py
+
+    Credit to Anne-Laure Vergnes
+"""
+
 import cv2
 import numpy as np
 # import cv2.aruco as aruco
@@ -8,7 +17,7 @@ import imutils
 import matplotlib.pyplot as plt
 from random import *
 from pyparrot.Minidrone import Mambo
-#from pyparrot.DroneVisionGUI import DroneVisionGUI
+from pyparrot.DroneVisionGUI import DroneVisionGUI
 import os
 import shutil
 

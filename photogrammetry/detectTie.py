@@ -1,3 +1,10 @@
+"""
+ENGO 500 - Bundle Adjustment Software Development
+ Authors: Claire Mah, Hannah Poon and Mabel Heffring
+    Date: April 4, 2023
+    File: detectTie.py
+"""
+
 import cv2
 import imutils
 import numpy as np
