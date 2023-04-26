@@ -63,7 +63,7 @@ If you lose connection, the drone will keep flying. To land, either:
 - Export the camera IOPs and their precisions
 
 ### Tie Point Detection (detectTie.py):
-- This script contains a function for detecting and measuring object points in the nadir drone imagery
+- This script contains a function for detecting and measuring object points in the nadir drone imagery.
 - The inputs to this function are as follows:
 	- main_folder: Path to the primary folder
     - output_file: Path to output file for image space observations
@@ -72,7 +72,7 @@ If you lose connection, the drone will keep flying. To land, either:
     - maxCon: maximum area for an acceptable contour (e.g. 2000)
 - Run the script for the desired drone images
 - For each image, manual organization and cleaning is required:
-	- For each point, input the visible point number into the command prompt and press enter.
+	- For each point, input the visible corresponding point number into the command prompt and press enter.
 	- If the contour is not a point, input -1 as the point number and it will be removed.
 	- Go over each image after detection to ensure no points are missed. If a point has been missed, consider adjusting the area threshold (minCon and maxCon) or acceptable colour range.
 	- Manually measure the missing point coordinates using an external software (e.g. IrfanView) and add it to the output file.
