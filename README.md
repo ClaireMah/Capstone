@@ -24,13 +24,14 @@ April 4th, 2023
 - Attach FPV camera to the drone. 
 - Turn on the drone, wait for flashing green eyes.
 - Look for a wifi connection called Mambo_XXXXXX (each drone will have a unique 6 digit ID). Sometimes it takes a few minutes to show up. 
-- Connect to this network, you will not have internet access. 
+- Connect to this network. You will not have internet access. 
 - Run your script (start with the ones in LearnToFly folder)
 
 ### Landing:
-If you lose connection, the drone will keep flying. To land, either:
+If you lose connection or your script fails, the drone will keep flying. To land, either:
 - Make sure you are still connected to the drones network and run "panic.py". This will reconnect to the drone and safely land it. 
-- Firmly tap the drone's propeller guards from the side. This will activate an emergency crash feature of the drone and will immediately cut it's flight. Be ready to catch it. 
+- Firmly tap the drone's propeller guards from the side. This will activate an emergency crash feature of the drone and will immediately cut it's flight. Be ready to catch it. Do this at your own risk. 
+- The drone will also land automatically when the battery dies 
 
 ### Other tips: 
 - To reset, hold down power button. Eyes will turn red. Keep holding power button until eyes are green again. 

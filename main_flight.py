@@ -8,7 +8,7 @@ ENGO 500 - Bundle Adjustment Software Development
 from pyparrot.Minidrone import Mambo
 from pyparrot.Minidrone import Minidrone
 from pyparrot.Minidrone import MinidroneSensors
-from pyparrot.DroneVisionGUI import DroneVisionGUI
+from pyparrot.DroneVisionGUI import DroneVisionGUI # use this for FPV camera video stream
 import inspect
 import cv2
 import os
