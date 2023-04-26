@@ -45,6 +45,8 @@ If you lose connection, the drone will keep flying. To land, either:
 - This script is designed to collect images in a semi-autonomous manner to be used in a photogrammetric bundle adjustment
 - To set up, find a large open indoor space with bright lighting. 
 - Choose 2 distinct symbols. Currently, the program is coded to use red squares as boundary points for navigation and green circles for bundle adjustment points. 
+- Note: If symbol detection is difficult, it is recommended to attach a white background to each symbol to improve the contrast
+- Clearly number each symbol so that the numbers are easily visible from the drone imagery
 - Tape symbols to the floor. 
     - Boundary points should make a circle, approximately 2m across. 
     - Photogrammetry points can be placed anywhere within the circle. Recommended to use at least 15. 
@@ -53,13 +55,27 @@ If you lose connection, the drone will keep flying. To land, either:
 - Connect to the drone and run main_flight.py. It will fly the drone within the defined boundary and collect up to 20 images. 
 
 ### Nadir Camera Calibration:
+- Install Matlab with the Computer Vision Toolbox included
 - Print out checkerboard (calibrationpattern_checkerboard.pdf)
-- Collect 10-20 images using only_pictures.py
-- @mabel idk the rest of the steps 
-- 
+- Collect 10-20 images of the checkerboard using only_pictures.py
+- Start the Matlab calibrator app by entering "cameraCalibrator" into the command prompt
+- Follow the calibration steps outlined here: https://www.mathworks.com/help/vision/ug/using-the-single-camera-calibrator-app.html
+- Export the camera IOPs and their precisions
 
-### Tie Point Detection:
-- 
+### Tie Point Detection (detectTie.py):
+- This script contains a function for detecting and measuring object points in the nadir drone imagery
+- The inputs to this function are as follows:
+	- main_folder: Path to the primary folder
+    - output_file: Path to output file for image space observations
+    - img_subfolder: Name of current image folder
+    - minCon: minimum area for an acceptable contour (e.g. 200)
+    - maxCon: maximum area for an acceptable contour (e.g. 2000)
+- Run the script for the desired drone images
+- For each image, manual organization and cleaning is required:
+	- For each point, input the visible point number into the command prompt and press enter.
+	- If the contour is not a point, input -1 as the point number and it will be removed.
+	- Go over each image after detection to ensure no points are missed. If a point has been missed, consider adjusting the area threshold (minCon and maxCon) or acceptable colour range.
+	- Manually measure the missing point coordinates using an external software (e.g. IrfanView) and add it to the output file.
 
 ### Bundle Adjustment:
 - Set up 6 input files
